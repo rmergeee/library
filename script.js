@@ -6,18 +6,8 @@ const myLibrary = [
     year: 1999,
     description: 'description',
     cover: 'cover'
-  },
-  {
-    id: 'ea824fd4-dd8d-4a3f-8a3c-a5b8ea1cb407',
-    name: 'Book',
-    author: 'Ben',
-    year: 1999,
-    description: 'description',
-    cover: 'cover'
   }
 ];
-
-const body = document.querySelector("section");
 
 function Book(name, author, year, description, cover) {
   this.id = crypto.randomUUID();
@@ -29,11 +19,10 @@ function Book(name, author, year, description, cover) {
 }
 
 function addBookToLibrary(name, author, year, description, cover) {
-  // let book = new Book(name, author, year, description, cover);
   myLibrary.push(new Book(name, author, year, description, cover));
 }
 
-function addBookToPage() {
+function addBookToList() {
 
   myLibrary.forEach((book) => {
     const article = document.createElement("article");
@@ -43,3 +32,6 @@ function addBookToPage() {
     body.appendChild(article);
   });
 }
+
+const addButton = document.querySelector(".add-btn");
+const addCards = document.querySelector(".add-cards");

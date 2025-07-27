@@ -20,7 +20,7 @@
         </section>
     </main>
 
-    <dialog closedby="any">
+    <dialog closedby="any" class="card-info">
         <h2 class="modal-header"></h2>
         <div class="modal-img-block"></div>
         <div class="modal-content">
@@ -29,6 +29,20 @@
                 <li class="year"></li>
                 <li class="description"></li>
             </ul>
+        </div>
+    </dialog>
+
+    <dialog closedby="any" class="new-card">
+        <div class="modal-content">
+            <h2>Create new book</h2>
+            <form class="createBookForm">
+                <input type="text" name="name" placeholder="Book name" required />
+                <input type="text" name="author" placeholder="Author" required />
+                <input type="number" name="year" placeholder="Release date" required />
+                <input type="url" name="cover" placeholder="Cover URL" required />
+                <textarea name="description" placeholder="Description"></textarea>
+                <button type="submit" class="add-btn">Create</button>
+            </form>
         </div>
     </dialog>
 </body>

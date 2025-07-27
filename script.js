@@ -83,16 +83,25 @@ function openCardView(found) {
   }
 
   appendLabelAndValue(author, 'Author: ', found.author);
-  appendLabelAndValue(year, 'Release date: ', found.year); // або found.releaseDate
+  appendLabelAndValue(year, 'Release date: ', found.year);
   appendLabelAndValue(description, 'Description: ', found.description);
 
   dialog.showModal();
 }
 
+function createNewBookObj() {
+  const formData = new FormData(createBookForm);
+  const data = {};
+  formData.forEach((value, key) => data[key] = value);
+  return data;
+}
+
 const addButton = document.querySelector(".add-btn");
 const addCards = document.querySelector(".add-cards");
 const bookTable = document.querySelector(".book-container");
-const dialog = document.querySelector('dialog');
+const dialog = document.querySelector('.card-info');
+const newCard = document.querySelector('.new-card')
+const createBookForm = document.querySelector(".createBookForm")
 
 addBookToPage();
 
@@ -104,3 +113,13 @@ bookTable.addEventListener('click', (e) => {
   if (found) openCardView(found);
 });
 
+addCards.addEventListener("click", () => newCard.showModal());
+
+createBookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const data = createNewBookObj();
+  addBookToLibrary(data.name, data.author, data.year, data.description, data.cover);
+  addBookToPage();
+  createBookForm.reset();
+  newCard.close();
+})

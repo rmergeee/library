@@ -3,7 +3,9 @@
   https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -22,26 +24,97 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
 p {
   text-wrap: pretty;
 }
-h1, h2, h3, h4, h5, h6 {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
 }
 
-#root, #__next {
+#root,
+#__next {
   isolation: isolate;
 }
+
+/* Загальний reset */
+input,
+textarea,
+select {
+  all: unset;
+  /* скидає всі стилі, включно з border, background, padding */
+  box-sizing: border-box;
+  font: inherit;
+  /* наслідує шрифт від батька */
+  color: inherit;
+}
+
+/* Додаємо базову структуру
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  background-color: white;
+} */
+
+
+/* input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  border: 1px solid #007bff;
+  border-radius: 0.375rem;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} */

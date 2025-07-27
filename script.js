@@ -55,6 +55,40 @@ function addBookToPage() {
   });
 }
 
+function openCardView(found) {
+  const modalHeader = document.querySelector(".modal-header");
+  modalHeader.textContent = found.name;
+
+  const modalCover = document.querySelector(".modal-img-block")
+  modalCover.style.background = `url(${found.cover}) center`;
+  modalCover.style.backgroundSize = `975px`;
+
+  const author = document.querySelector(".author");
+  const year = document.querySelector(".year");
+  const description = document.querySelector(".description");
+
+  author.textContent = "";
+  year.textContent = "";
+  description.textContent = "";
+
+  function appendLabelAndValue(container, labelText, valueText) {
+    const label = document.createElement('b');
+    label.textContent = labelText;
+
+    const value = document.createElement('span');
+    value.textContent = valueText;
+
+    container.appendChild(label);
+    container.appendChild(value);
+  }
+
+  appendLabelAndValue(author, 'Author: ', found.author);
+  appendLabelAndValue(year, 'Release date: ', found.year); // або found.releaseDate
+  appendLabelAndValue(description, 'Description: ', found.description);
+
+  dialog.showModal();
+}
+
 const addButton = document.querySelector(".add-btn");
 const addCards = document.querySelector(".add-cards");
 const bookTable = document.querySelector(".book-container");
@@ -67,38 +101,6 @@ bookTable.addEventListener('click', (e) => {
   if (!book) return;
 
   const found = myLibrary.find(item => item.id === book.id);
-
-  if (found) {
-    const modalHeader = document.querySelector(".modal-header");
-    modalHeader.textContent = found.name;
-
-    const modalCover = document.querySelector(".modal-img-block")
-    modalCover.style.background = `url(${found.cover}) center`;
-    modalCover.style.backgroundSize = `975px`;
-
-    const author = document.querySelector(".author");
-    const year = document.querySelector(".year");
-    const description = document.querySelector(".description");
-
-    author.textContent = "";
-    year.textContent = "";
-    description.textContent = "";
-
-    function appendLabelAndValue(container, labelText, valueText) {
-      const label = document.createElement('b');
-      label.textContent = labelText;
-
-      const value = document.createElement('span');
-      value.textContent = valueText;
-
-      container.appendChild(label);
-      container.appendChild(value);
-    }
-
-    appendLabelAndValue(author, 'Author: ', found.author);
-    appendLabelAndValue(year, 'Release date: ', found.year); // або found.releaseDate
-    appendLabelAndValue(description, 'Description: ', found.description);
-
-    dialog.showModal();
-  }
+  if (found) openCardView(found);
 });
+

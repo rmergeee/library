@@ -64,7 +64,7 @@ header {
     }
 }
 
-.book-conteiner {
+.book-container {
     min-height: 500px;
     border: 1px solid var(--book-border);
     border-top: none;
@@ -151,5 +151,14 @@ dialog {
         color: var(--text-color);
     }
 
+    >.modal-content {
+        color: var(--text-color);
+
+        >.book-prop {
+            font-size: 1.2rem;
+            padding: 1rem 2rem;
+            list-style: none;
+        }
+    }
     
 }

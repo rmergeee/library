@@ -57,7 +57,7 @@ function addBookToPage() {
 
 const addButton = document.querySelector(".add-btn");
 const addCards = document.querySelector(".add-cards");
-const bookTable = document.querySelector(".book-conteiner");
+const bookTable = document.querySelector(".book-container");
 const dialog = document.querySelector('dialog');
 
 addBookToPage();
@@ -76,7 +76,28 @@ bookTable.addEventListener('click', (e) => {
     modalCover.style.background = `url(${found.cover}) center`;
     modalCover.style.backgroundSize = `975px`;
 
+    const author = document.querySelector(".author");
+    const year = document.querySelector(".year");
+    const description = document.querySelector(".description");
 
+    author.textContent = "";
+    year.textContent = "";
+    description.textContent = "";
+
+    function appendLabelAndValue(container, labelText, valueText) {
+      const label = document.createElement('b');
+      label.textContent = labelText;
+
+      const value = document.createElement('span');
+      value.textContent = valueText;
+
+      container.appendChild(label);
+      container.appendChild(value);
+    }
+
+    appendLabelAndValue(author, 'Author: ', found.author);
+    appendLabelAndValue(year, 'Release date: ', found.year); // або found.releaseDate
+    appendLabelAndValue(description, 'Description: ', found.description);
 
     dialog.showModal();
   }

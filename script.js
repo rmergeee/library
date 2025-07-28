@@ -9,6 +9,8 @@ const myLibrary = [
   }
 ];
 
+Object.setPrototypeOf(myLibrary[0], Book.prototype);
+
 function Book(name, author, year, description, cover) {
   this.id = crypto.randomUUID();
   this.name = name;
@@ -17,6 +19,11 @@ function Book(name, author, year, description, cover) {
   this.description = description;
   this.cover = cover;
 }
+
+Book.prototype.changeReadStatus = function () {
+  this.read = !this.read; // працює навіть якщо this.read ще не було
+  console.log(`Book is now ${this.read ? 'read' : 'unread'}`);
+};
 
 function addBookToLibrary(name, author, year, description, cover) {
   myLibrary.push(new Book(name, author, year, description, cover));

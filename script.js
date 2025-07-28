@@ -21,8 +21,7 @@ function Book(name, author, year, description, cover) {
 }
 
 Book.prototype.changeReadStatus = function () {
-  this.read = !this.read; // працює навіть якщо this.read ще не було
-  console.log(`Book is now ${this.read ? 'read' : 'unread'}`);
+  this.read = !this.read;
 };
 
 function addBookToLibrary(name, author, year, description, cover) {
@@ -52,10 +51,22 @@ function addBookToPage() {
     bookCover.style.background = `url(${book.cover}) 358px`;
     bookCover.style.backgroundSize = `358px`;
 
+
+    deleteBook.className = "delete-book";
+    deleteBook.textContent = "Delete";
+
+
+    markRead.className = "mark-read";
+    if (book.read) markRead.textContent = "Read";
+    markRead.textContent = "Unread";
+
     newBook.id = book.id;
 
     newBook.appendChild(bookCover);
     newBook.appendChild(bookName);
+    bookCover.appendChild(markRead);
+    bookCover.appendChild(deleteBook);
+
 
     const firstChild = bookTable.firstChild;
     bookTable.insertBefore(newBook, firstChild);
@@ -109,18 +120,22 @@ const bookTable = document.querySelector(".book-container");
 const dialog = document.querySelector('.card-info');
 const newCard = document.querySelector('.new-card')
 const createBookForm = document.querySelector(".createBookForm")
+const deleteBook = document.createElement("button");
+const markRead = document.createElement("button");
 
 addBookToPage();
 
 bookTable.addEventListener('click', (e) => {
   const book = e.target.closest('.card');
   if (!book) return;
+  if (e.target.closest('button')) return;
 
   const found = myLibrary.find(item => item.id === book.id);
   if (found) openCardView(found);
 });
 
 addCards.addEventListener("click", () => newCard.showModal());
+addButton.addEventListener("click", () => newCard.showModal());
 
 createBookForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -129,4 +144,24 @@ createBookForm.addEventListener("submit", (e) => {
   addBookToPage();
   createBookForm.reset();
   newCard.close();
+})
+
+markRead.addEventListener('click', (e) => {
+  const book = e.target.closest('.card');
+  const found = myLibrary.find(item => item.id === book.id);
+  if (found.read) {
+    markRead.textContent = "Unread";
+    found.changeReadStatus();
+  } else {
+    markRead.textContent = "Read";
+    found.changeReadStatus();
+  }
+
+});
+
+deleteBook.addEventListener('click', (e) => {
+  const book = e.target.closest('.card');
+  const found = myLibrary.find(item => item.id === book.id);
+  myLibrary.pop(found);
+  book.remove();
 })

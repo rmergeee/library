@@ -107,6 +107,26 @@ header {
     .img-block {
         border-radius: 10px 10px 0 0;
         background: var(--book-card-bg);
+        
+        text-align: right;
+
+        >.delete-book, .mark-read {
+            visibility: hidden;
+            background-color: var(--book-card-bg);
+            margin: 0.5rem 0.5rem 0 0;
+            border: 1px solid var(--book-border);
+            border-radius: 5px;
+            padding: 2px;
+            color: #ffffff48;
+        }
+
+        >.delete-book:hover, .mark-read:hover {
+            background-color: var(--book-card-bg-hover);
+        }
+
+        >.delete-book:active, .mark-read:active {
+            background-color: var(--book-card-bg);
+        }
     }
 
     .desc {
@@ -123,6 +143,10 @@ header {
 
         .desc {
             background-color: var(--book-card-title-bg-hover);
+        }
+
+        .delete-book, .mark-read {
+            visibility: visible;
         }
     }
 }

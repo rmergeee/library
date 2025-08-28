@@ -1,6 +1,6 @@
 import { Book } from "./Book.js"
 
-class Library {
+export class Library {
     constructor() {
         this.bookStorage = [new Book(
             '100173ea-fd9c-44fb-ae46-922a1366eb02',
@@ -17,6 +17,6 @@ class Library {
     }
 
     removeBookFromStorage(id) {
-
+        
     }
 }

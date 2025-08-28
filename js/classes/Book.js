@@ -1,4 +1,4 @@
-class Book {
+export class Book {
     constructor(name, author, year, description, cover) {
         this.id = crypto.randomUUID();
         this.name = name;

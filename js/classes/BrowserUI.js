@@ -6,9 +6,7 @@ export class BrowserUI {
     }
 
     addBookToPage() {
-
         this.library.bookStorage.forEach((book) => {
-
             const allCards = document.querySelectorAll(".card");
             let alreadyExists = false;
             allCards.forEach((bookOnPage) => {
@@ -20,33 +18,56 @@ export class BrowserUI {
 
             const newBook = document.createElement("div");
             newBook.className = "card";
+            newBook.id = book.id;
+
             const bookName = document.createElement("div");
             bookName.className = "desc";
             bookName.textContent = book.name;
+
             const bookCover = document.createElement("div");
             bookCover.className = "img-block";
             bookCover.style.background = `url(${book.cover}) 358px`;
             bookCover.style.backgroundSize = `358px`;
 
+            // Створюємо НОВІ кнопки для КОЖНОЇ книги
+            const deleteBook = document.createElement("button");
+            deleteBook.className = "delete-book";
+            deleteBook.textContent = "Delete";
 
-            this.deleteBook.className = "delete-book";
-            this.deleteBook.textContent = "Delete";
-
-
-            this.markRead.className = "mark-read";
+            const markRead = document.createElement("button");
+            markRead.className = "mark-read";
             if (book.read) {
-                this.markRead.textContent = "Read";
+                markRead.textContent = "Read";
             } else {
-                this.markRead.textContent = "Unread";
+                markRead.textContent = "Unread";
             }
 
-            newBook.id = book.id;
-
+            // Збираємо елементи
             newBook.appendChild(bookCover);
             newBook.appendChild(bookName);
-            bookCover.appendChild(this.markRead);
-            bookCover.appendChild(this.deleteBook);
+            bookCover.appendChild(markRead);
+            bookCover.appendChild(deleteBook);
 
+            // Додаємо event listeners до кнопок цієї конкретної книги
+            deleteBook.addEventListener('click', (e) => {
+                e.stopPropagation(); // Запобігаємо спрацьовуванню click на картці
+                const found = this.library.bookStorage.find(item => item.id === book.id);
+                const index = this.library.bookStorage.findIndex(item => item.id === found.id);
+                this.library.bookStorage.splice(index, 1);
+                newBook.remove();
+            });
+
+            markRead.addEventListener('click', (e) => {
+                e.stopPropagation(); // Запобігаємо спрацьовуванню click на картці
+                const found = this.library.bookStorage.find(item => item.id === book.id);
+                if (found.read) {
+                    markRead.textContent = "Unread";
+                    found.changeReadStatus();
+                } else {
+                    markRead.textContent = "Read";
+                    found.changeReadStatus();
+                }
+            });
 
             const firstChild = this.bookTable.firstChild;
             this.bookTable.insertBefore(newBook, firstChild);
@@ -99,10 +120,8 @@ export class BrowserUI {
         this.addCards = document.querySelector(".add-cards");
         this.bookTable = document.querySelector(".book-container");
         this.dialog = document.querySelector('.card-info');
-        this.newCard = document.querySelector('.new-card')
-        this.createBookForm = document.querySelector(".createBookForm")
-        this.deleteBook = document.createElement("button");
-        this.markRead = document.createElement("button");
+        this.newCard = document.querySelector('.new-card');
+        this.createBookForm = document.querySelector(".createBookForm");
     }
 
     attachEventListeners() {
@@ -127,34 +146,12 @@ export class BrowserUI {
             this.createBookForm.reset();
             this.newCard.close();
         })
-
-        this.markRead.addEventListener('click', (e) => {
-            const book = e.target.closest('.card');
-            const found = this.library.bookStorage.find(item => item.id === book.id);
-            if (found.read) {
-                this.markRead.textContent = "Unread";
-                found.changeReadStatus();
-            } else {
-                this.markRead.textContent = "Read";
-                found.changeReadStatus();
-            }
-
-        });
-
-        this.deleteBook.addEventListener('click', (e) => {
-            const book = e.target.closest('.card');
-            const found = this.library.bookStorage.find(item => item.id === book.id);
-            const index = this.library.bookStorage.findIndex(item => item.id === found.id);
-            this.library.bookStorage.splice(index, 1);
-            book.remove();
-        })
-
     }
 
 
 
     render() {
-
+        this.addBookToPage();
     }
 
     init() {

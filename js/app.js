@@ -1,7 +1,4 @@
 import {BrowserUI} from "./classes/BrowserUI.js"
 
-class App {
-    constructor() {
-        this.ui = new BrowserUI();
-    }
-}
+const ui = new BrowserUI();
+ui.init();
